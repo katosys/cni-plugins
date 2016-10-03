@@ -32,4 +32,5 @@ ADD rootfs /
 # Entrypoint:
 #------------------------------------------------------------------------------
 
-ENTRYPOINT ["/bin/sh", "-c", "cp /cni-plugins/* /tmp"]
+WORKDIR /cni-plugins
+ENTRYPOINT ["/init"]

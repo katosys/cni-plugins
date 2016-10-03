@@ -1,3 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-hostname
+for i in $(ls); do
+  [ -f /tmp/${i} ] || cp ${i} /tmp
+  MD5_SRC=$(md5sum ${i} | awk '{print $1}')
+  MD5_DST=$(md5sum /tmp/${i} | awk '{print $1}')
+  [ "${MD5_SRC}" != "${MD5_DST}" ] && cp ${i} /tmp
+done || exit 0
