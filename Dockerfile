@@ -2,24 +2,24 @@
 # Set the base image for subsequent instructions:
 #------------------------------------------------------------------------------
 
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER Marc Villacorta Morera <marc.villacorta@gmail.com>
 
 #------------------------------------------------------------------------------
 # Environment variables:
 #------------------------------------------------------------------------------
 
-ENV VERSION="v0.3.0" \
+ENV VERSION="v0.5.0" \
     CGO_ENABLED="0"
 
 #------------------------------------------------------------------------------
 # Install:
 #------------------------------------------------------------------------------
 
-RUN apk add --no-cache --update -t deps git go bash \
+RUN apk add --no-cache -U -t deps git go bash musl-dev \
     && git clone https://github.com/containernetworking/cni.git \
-    && cd cni; git checkout tags/${VERSION} -b ${VERSION} \
-    && ./build; mkdir /cni-plugins; mv bin/* /cni-plugins \
+    && cd cni && git checkout tags/${VERSION} -b build \
+    && ./build && mkdir /cni-plugins; mv bin/* /cni-plugins \
     && apk del --purge deps && rm -rf /cni /var/cache/apk/*
 
 #------------------------------------------------------------------------------

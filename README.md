@@ -8,5 +8,5 @@ This will copy the plugins to `/tmp/cni`:
 ```
 docker run -it \
   --volume /tmp/cni:/tmp \
-  katosys/cni-plugins:v0.3.0-1
+  katosys/cni-plugins
 ```
